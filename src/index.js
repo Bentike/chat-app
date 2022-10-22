@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { usernameReducer } from './Reducer';
 
-const store = createStore(usernameReducer);
+export const store = createStore(usernameReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
