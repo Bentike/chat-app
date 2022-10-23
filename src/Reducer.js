@@ -1,13 +1,16 @@
-import { SET_USERNAME } from "./Constatnts"
+import { ADD_MESSAGE, SET_USERNAME } from "./Constatnts"
 
 const defalutState = {
-    username: "bentike"
+    username: "bentike",
+    messages: []
 }
 
 export const usernameReducer = (state = defalutState, action) => {
     switch(action.type){
         case SET_USERNAME:
-            return Object.assign({}, defalutState, {username: action.payload});
+            return Object.assign({}, state, {username: action.payload});
+        case ADD_MESSAGE:
+            return Object.assign({}, state, {messages: [...state.messages, action.payload]});    
         default:
             return state;    
     }

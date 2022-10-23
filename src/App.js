@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import {setUsername} from './Actions';
+import {setUsername, addMessage} from './Actions';
 import {connect} from 'react-redux';
 import Chat from './Components/Chat';
 import Input from './Components/Input';
@@ -18,12 +18,18 @@ const mapDispatchToProps = (dispatch) => {
    return {
       setUsername: () => {
         dispatch(setUsername(username));
-        console.log(store.getState().username);
+      },
+
+      addMessage: (msg) => {
+        dispatch(addMessage(msg));
       } 
    }
 }
 
-function App({setUsername}) {
+function App({setUsername, addMessage}) {
+
+  const chats = store.getState().messages;
+
   const [message, setMessage] = useState('');
 
   const handleInputChange = (e) => {
@@ -32,13 +38,16 @@ function App({setUsername}) {
 
   const handleSend = () => {
     setUsername(username);
+    addMessage(message);
     setMessage("");
   }
 
   return (
     <>
       <div className="App">
-        <Chat/>
+        {chats.map((msg, i) => {
+           return <Chat key={i} chat={msg}/>
+        })}
       </div>
       <Input inputValue={message} inputChange={handleInputChange} sendMessage={handleSend}/>
     </>
