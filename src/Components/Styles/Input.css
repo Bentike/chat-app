@@ -1,0 +1,26 @@
+.input{
+    width: 38%;
+    margin: 0 auto;
+    background-color: #1976d2;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.message{
+  outline: none;
+  font-size: 16px;
+  padding: 10px;
+  width: 60%;
+  border-radius: 50px;
+  border: none;  
+}
+
+button{
+  width: 20%;
+  border-radius: 50px;
+  border: none;
+  font-weight: bold;  
+}
