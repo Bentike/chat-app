@@ -1,6 +1,7 @@
 import './App.css';
 import {setUsername} from './Actions';
 import {connect} from 'react-redux';
+import Chat from './Components/Chat';
 import {store} from './';
 
 let username = prompt("Enter Username");
@@ -15,7 +16,6 @@ const mapDispatchToProps = (dispatch) => {
    return {
       setUsername: () => {
         dispatch(setUsername(username));
-        console.log(store.getState().username);
       } 
    }
 }
@@ -25,6 +25,7 @@ function App({setUsername}) {
     <div className="App">
       <h1>Welcome To My ChatApp</h1>
       <button onClick={setUsername}>SetName</button> 
+      <Chat/>
     </div>
   );
 }
