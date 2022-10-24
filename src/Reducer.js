@@ -1,7 +1,7 @@
 import { ADD_MESSAGE, SET_USERNAME } from "./Constatnts"
 
 const defalutState = {
-    username: "bentike",
+    username: "",
     messages: []
 }
 

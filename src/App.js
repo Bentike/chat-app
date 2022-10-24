@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {setUsername, addMessage} from './Actions';
 import {connect} from 'react-redux';
 import Chat from './Components/Chat';
@@ -27,8 +27,23 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function App({setUsername, addMessage}) {
+// To be continued on Implementing local storage Insha Allah....
 
-  const chats = store.getState().messages;
+const getChatsFromStorage = () => {
+  return JSON.parse(localStorage.getItem('items') || '[]');
+}
+
+// const getChatSenderFromStorage = () => {
+//   return JSON.parse(localStorage.getItem('chatSender') || '');
+// }
+
+const [items, setItems] = useState(() => getChatsFromStorage());
+const [chatSender, setChatSender] = useState();
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+    localStorage.setItem('chatSender', JSON.stringify(username));
+  }, [items]);
 
   const [message, setMessage] = useState('');
 
@@ -38,14 +53,16 @@ function App({setUsername, addMessage}) {
 
   const handleSend = () => {
     setUsername(username);
+    setChatSender(username);
     addMessage(message);
+    setItems([...items, message]);
     setMessage("");
   }
 
   return (
     <>
       <div className="App">
-        {chats.map((msg, i) => {
+        {getChatsFromStorage().map((msg, i) => {
            return <Chat key={i} chat={msg}/>
         })}
       </div>
