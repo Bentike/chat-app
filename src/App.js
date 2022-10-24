@@ -4,7 +4,6 @@ import {setUsername, addMessage} from './Actions';
 import {connect} from 'react-redux';
 import Chat from './Components/Chat';
 import Input from './Components/Input';
-import {store} from './';
 
 let username = prompt("Enter Username");
 
@@ -27,18 +26,12 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function App({setUsername, addMessage}) {
-// To be continued on Implementing local storage Insha Allah....
 
 const getChatsFromStorage = () => {
   return JSON.parse(localStorage.getItem('items') || '[]');
 }
 
-// const getChatSenderFromStorage = () => {
-//   return JSON.parse(localStorage.getItem('chatSender') || '');
-// }
-
 const [items, setItems] = useState(() => getChatsFromStorage());
-const [chatSender, setChatSender] = useState();
 
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
@@ -53,9 +46,10 @@ const [chatSender, setChatSender] = useState();
 
   const handleSend = () => {
     setUsername(username);
-    setChatSender(username);
-    addMessage(message);
-    setItems([...items, message]);
+    if(message){
+      addMessage(message);
+      setItems([...items, message]);
+    }
     setMessage("");
   }
 
